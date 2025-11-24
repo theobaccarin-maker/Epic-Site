@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Epic-Site</title>
+<style type="text/css">
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f7f7f7;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centraliza o conteúdo verticalmente */
+        align-items: center; /* Centraliza o conteúdo horizontalmente */
+    }
+
+    #imgpos {
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/f/f3/Awesome_Face.svg');
+        background-size: cover;
+        width: 160px;
+        height: 160px;
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+        margin-top: 20px; /* Espaço entre o topo da página e o botão */
+    }
+
+    #roletaText {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-top: 30px; /* Espaço entre o botão e o texto */
+    }
+
+    #sorteText {
+        font-size: 18px;
+        color: #666;
+        margin-top: 10px; /* Espaço entre "Roleta Épica" e "Teste sua sorte" */
+    }
+
+    #numberDisplay {
+        font-size: 48px;
+        font-weight: bold;
+        color: #FF5733;
+        margin-top: 30px; /* Espaço entre o texto e o número sorteado */
+    }
+</style>
+</head>
+<body>
+
+<!-- Botão com a imagem -->
+<button id="imgpos"></button>
+
+<!-- Texto no meio -->
+<div id="roletaText">Roleta Épica</div>
+<div id="sorteText">Teste sua sorte</div>
+
+<!-- Número sorteado aparece aqui -->
+<div id="numberDisplay"></div>
+
+<script>
+    let intervalo;
+    let tempoFinal = 3000; // Tempo total para roleta girar (em ms)
+    let tempoInteracao = 50; // Intervalo entre os números gerados (em ms)
+
+    // Função para gerar um número aleatório entre 1 e 10000
+    function gerarNumero() {
+        return Math.floor(Math.random() * 10000) + 1;
+    }
+
+    // Função para simular a roleta
+    function roleta() {
+        let numeroFinal = gerarNumero();
+        let tempoPassado = 0;
+
+        // Loop para gerar números rapidamente
+        intervalo = setInterval(() => {
+            const numeroAtual = gerarNumero();
+            document.getElementById('numberDisplay').textContent = numeroAtual;
+            tempoPassado += tempoInteracao;
+
+            // Quando o tempo total passar, congelamos no número final
+            if (tempoPassado >= tempoFinal) {
+                clearInterval(intervalo); // Para o intervalo
+                document.getElementById('numberDisplay').textContent = numeroFinal; // Mostra o número final
+            }
+        }, tempoInteracao);
+    }
+
+    // Evento de clique no botão
+    document.getElementById('imgpos').addEventListener('click', roleta);
+</script>
+
+</body>
+</html>
+
+
+
